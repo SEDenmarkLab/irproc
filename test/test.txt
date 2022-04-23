@@ -1,0 +1,8 @@
+>>> C:\SAS\programs\repo\irproc\test\test.csv
+IR (ATR): 3412 (w), 2955 (w), 2869 (w), 1612 (w), 1505 (s), 1451 (w), 1402 (w), 1354 (w), 1311 (m), 1211 (s), 1155 (w), 1100 (w), 816 (s), 771 (m), 507 (m).
+>>> C:\SAS\programs\repo\irproc\test\test.csv
+IR (ATR): 3412 (w), 2955 (w), 2869 (w), 1612 (w), 1505 (s), 1451 (w), 1402 (w), 1354 (w), 1311 (m), 1211 (s), 1155 (w), 1100 (w), 816 (s), 771 (m), 507 (m).
+>>> C:\SAS\programs\repo\irproc\test\test.csv
+IR (ATR): 3412 (w), 2955 (w), 2869 (w), 1612 (w), 1505 (s), 1451 (w), 1402 (w), 1354 (w), 1311 (m), 1211 (s), 1155 (w), 1100 (w), 816 (s), 771 (m), 507 (m).
+>>> C:\SAS\programs\repo\irproc\test\test.csv
+IR (ATR): 3412 (w), 2955 (w), 2869 (w), 1612 (w), 1505 (s), 1451 (w), 1402 (w), 1354 (w), 1311 (m), 1211 (s), 1155 (w), 1100 (w), 816 (s), 771 (m), 507 (m).

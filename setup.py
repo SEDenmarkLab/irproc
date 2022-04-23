@@ -16,5 +16,5 @@ setup(
         "pandas>1.3.5",
     ],
     python_requires=">=3.6",
-    entry_points={"console_scripts": ["irproc = irproc:main.main"]},
+    entry_points={"console_scripts": ["irproc = irproc:main"]},
 )

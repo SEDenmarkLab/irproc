@@ -9,6 +9,7 @@ import pandas as pd
 from argparse import ArgumentParser
 from glob import glob
 import os
+from sys import stderr, stdout
 from matplotlib import pyplot as plt, rc_context
 from scipy.signal import find_peaks
 
@@ -59,9 +60,10 @@ parser.add_argument(
 parser.add_argument(
     "-p",
     "--plot",
-    metavar="./*.svg",
+    metavar="*.svg",
     action="store",
-    default="*.svg",
+    default="{FILENAME}.svg",
+    type=str,
     help="This is used to specify a pattern that determines where the plot files. Star will be replaced with the actual file name. File extension determines the output",
 )
 
@@ -254,25 +256,30 @@ def generate_report(
 
 
 def main():
-    print("=" * 80)
-    print("IR Spectral Processing (C) Alexander Shved and the Denmark Lab")
-    print("=" * 80)
+    print("=" * 80, file=stderr)
+    print("IR Spectral Processing (C) Alexander Shved and the Denmark Lab", file=stderr)
+    print("=" * 80, file=stderr)
     parsed = parser.parse_args()
     all_files = get_all_files(parsed.files)
+
+    if parsed.output:
+        outstream = open(parsed.output, "at")
+    else:
+        outstream = stdout
+
     if not all_files:
-        print("No valid files to process. Exiting...")
+        print("No valid files to process. Exiting...", file=stderr)
         exit(1)
     else:
-        print(f"Requested to proces {len(all_files)} files.")
+        print(f"Requested to process {len(all_files)} files.")
 
-    for f in all_files:
+    with rc_context(MPL_DEFAULT_PARAM, fname=parsed.mpl_param):
+        for f in all_files:
+            fname = f.removesuffix(".csv")
 
-        fname = f.rsplit(".")[0]
+            print(f">>> {os.path.abspath(f)}", file=outstream)
+            ir_w, ir_t = process_file(f)
 
-        print(f">>> {os.path.abspath(f)}")
-        ir_w, ir_t = process_file(f)
-
-        with rc_context(MPL_DEFAULT_PARAM, fname=parsed.mpl_param):
             report = generate_report(
                 f,
                 normalize=~parsed.raw,
@@ -281,11 +288,12 @@ def main():
                 broad_width=parsed.broad_peak_min_width,
                 distance=parsed.peak_min_distance,
             )
+            print("Plot", f, "-->", parsed.plot.format(FILENAME=fname), file=stderr)
 
-            plt.savefig(parsed.plot.replace("*", fname), dpi=parsed.dpi)
+            # plt.savefig(parsed.plot.replace("*", fname), dpi=parsed.dpi)
 
-        _rep = ", ".join(report)
-        print(f"IR (ATR): {_rep}.")
+            _rep = ", ".join(report)
+            print(f"IR (ATR): {_rep}.", file=outstream)
 
 
 if __name__ == "__main__":
