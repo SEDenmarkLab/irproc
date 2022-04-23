@@ -288,9 +288,11 @@ def main():
                 broad_width=parsed.broad_peak_min_width,
                 distance=parsed.peak_min_distance,
             )
-            print("Plot", f, "-->", parsed.plot.format(FILENAME=fname), file=stderr)
 
-            # plt.savefig(parsed.plot.replace("*", fname), dpi=parsed.dpi)
+            plotfn = parsed.plot.format(FILENAME=fname)
+            print("Plot", f, "-->", plotfn, file=stderr)
+
+            plt.savefig(plotfn, dpi=parsed.dpi)
 
             _rep = ", ".join(report)
             print(f"IR (ATR): {_rep}.", file=outstream)
